@@ -79,9 +79,12 @@ public class PermissionsManager {
         PermissionsManager.appContext = appContext;
     }
 
-    public void attachToView(Activity context, View snackBarParent) {
-        this.context = context;
+    public void attachToView(View snackBarParent) {
         this.snackBarParent = snackBarParent;
+    }
+
+    public void setContext(Activity context) {
+        this.context = context;
         appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
