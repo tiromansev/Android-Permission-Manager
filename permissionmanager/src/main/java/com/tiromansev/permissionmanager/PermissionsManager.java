@@ -86,6 +86,7 @@ public class PermissionsManager {
     public void setContext(Activity context) {
         this.context = context;
         appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.snackBarParent = context.findViewById(android.R.id.content);
     }
 
     public void checkPermission(int permissionId, PermissionCallback permissionCallback) {
