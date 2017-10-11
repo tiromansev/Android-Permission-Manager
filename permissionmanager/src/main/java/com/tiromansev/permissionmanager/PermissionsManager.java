@@ -85,8 +85,14 @@ public class PermissionsManager {
 
     public void setContext(Activity context) {
         this.context = context;
-        appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        this.snackBarParent = context.findViewById(android.R.id.content);
+        if (context != null) {
+            appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            this.snackBarParent = context.findViewById(android.R.id.content);
+        }
+        else {
+            appPreferences = null;
+            snackBarParent = null;
+        }
     }
 
     public void checkPermission(int permissionId, PermissionCallback permissionCallback) {
@@ -314,30 +320,40 @@ public class PermissionsManager {
                     })
                     .show();
             permissionCallback.permissionRejected();
-        } else {
+        } else if (context != null) {
             Toast.makeText(context, appContext.getString(R.string.message_snakbar_parent_is_null), Toast.LENGTH_LONG).show();
         }
     }
 
     private boolean hasPermission(String permission) {
+        if (context == null) {
+            return false;
+        }
         return !canMakeSmores() ||
                 (ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED);
     }
 
     private boolean shouldWeAsk(String permission) {
+        if (appPreferences == null) {
+            return false;
+        }
         return appPreferences.getBoolean(permission, true);
     }
 
     private void markAsAsked(String permission) {
-        SharedPreferences.Editor edit = appPreferences.edit();
-        edit.putBoolean(permission, false);
-        edit.apply();
+        if (appPreferences != null) {
+            SharedPreferences.Editor edit = appPreferences.edit();
+            edit.putBoolean(permission, false);
+            edit.apply();
+        }
     }
 
     private void clearMarkAsAsked(String permission) {
-        SharedPreferences.Editor edit = appPreferences.edit();
-        edit.putBoolean(permission, true);
-        edit.apply();
+        if (appPreferences != null) {
+            SharedPreferences.Editor edit = appPreferences.edit();
+            edit.putBoolean(permission, true);
+            edit.apply();
+        }
     }
 
     private ArrayList<String> findUnAskedPermissions(ArrayList<String> wanted) {
