@@ -85,7 +85,7 @@ Step 2. Add the dependency
 
 ```Groovy
 	dependencies {
-	        compile 'com.github.tiromansev:Android-Permission-Manager:0.0.3'
+	        compile 'com.github.tiromansev:Android-Permission-Manager:0.0.4'
 	}
 ```
 
@@ -93,19 +93,19 @@ Maven:
 
 ```Groovy
 <repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
 ```
 
 Step 2. Add the dependency
 
 ```Groovy
 <dependency>
-	    <groupId>com.github.tiromansev</groupId>
-	    <artifactId>Android-Permission-Manager</artifactId>
-	    <version>0.0.3</version>
-	</dependency>
+    <groupId>com.github.tiromansev</groupId>
+    <artifactId>Android-Permission-Manager</artifactId>
+    <version>0.0.4</version>
+</dependency>
 ```
