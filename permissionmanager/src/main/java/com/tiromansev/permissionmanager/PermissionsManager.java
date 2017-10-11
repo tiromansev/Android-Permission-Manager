@@ -83,16 +83,15 @@ public class PermissionsManager {
         this.snackBarParent = snackBarParent;
     }
 
-    public void setContext(Activity context) {
+    public void attachTo(Activity context) {
         this.context = context;
-        if (context != null) {
-            appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-            this.snackBarParent = context.findViewById(android.R.id.content);
-        }
-        else {
-            appPreferences = null;
-            snackBarParent = null;
-        }
+        appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.snackBarParent = context.findViewById(android.R.id.content);
+    }
+
+    public void detachFrom() {
+        appPreferences = null;
+        snackBarParent = null;
     }
 
     public void checkPermission(int permissionId, PermissionCallback permissionCallback) {

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                permissionsManager.setContext(MainActivity.this);
+                permissionsManager.attachTo(MainActivity.this);
                 permissionsManager.attachToView(clContent);
                 permissionsManager.checkPermission(PermissionsManager.WRITE_EXTERNAL_REQUEST, new PermissionsManager.PermissionCallback() {
                     @Override
