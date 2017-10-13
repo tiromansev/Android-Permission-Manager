@@ -37,15 +37,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final ConstraintLayout clContent = (ConstraintLayout) findViewById(R.id.clContent);
+        permissionsManager.attachTo(this);
 
         Button btnCheck = (Button) findViewById(R.id.btnCheck);
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                permissionsManager.setContext(MainActivity.this);
-                permissionsManager.attachToView(clContent);
                 permissionsManager.checkPermission(PermissionsManager.WRITE_EXTERNAL_REQUEST, new PermissionsManager.PermissionCallback() {
                     @Override
                     public void permissionAccepted() {
@@ -59,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        permissionsManager.detachFrom();
     }
 
     @Override
