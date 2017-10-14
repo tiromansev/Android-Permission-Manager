@@ -88,7 +88,7 @@ Step 2. Add the dependency
 
 ```Groovy
 	dependencies {
-	        compile 'com.github.tiromansev:Android-Permission-Manager:0.0.6'
+	        compile 'com.github.tiromansev:Android-Permission-Manager:0.0.7'
 	}
 ```
 
@@ -109,6 +109,6 @@ Step 2. Add the dependency
 <dependency>
     <groupId>com.github.tiromansev</groupId>
     <artifactId>Android-Permission-Manager</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 </dependency>
 ```
