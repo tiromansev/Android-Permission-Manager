@@ -86,12 +86,14 @@ public class PermissionsManager {
     public void attachTo(Activity context) {
         this.context = context;
         appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        this.snackBarParent = context.findViewById(android.R.id.content);
+        snackBarParent = context.findViewById(android.R.id.content);
     }
 
     public void detachFrom() {
         appPreferences = null;
         snackBarParent = null;
+        context = null;
+        permissionCallback = null;
     }
 
     public void checkLocationAcess(PermissionCallback permissionCallback) {
