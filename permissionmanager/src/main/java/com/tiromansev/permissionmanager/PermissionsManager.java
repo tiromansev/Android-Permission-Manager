@@ -94,6 +94,106 @@ public class PermissionsManager {
         snackBarParent = null;
     }
 
+    public void checkLocationAcess(PermissionCallback permissionCallback) {
+        checkPermission(LOCATION_REQUEST, permissionCallback);
+    }
+
+    public void checkWriteExternalAccess(PermissionCallback permissionCallback) {
+        checkPermission(WRITE_EXTERNAL_REQUEST, permissionCallback);
+    }
+
+    public void checkReadCalendarAccess(PermissionCallback permissionCallback) {
+        checkPermission(READ_CALENDAR_REQUEST, permissionCallback);
+    }
+
+    public void checkWriteCalendarAccess(PermissionCallback permissionCallback) {
+        checkPermission(WRITE_CALENDAR_REQUEST, permissionCallback);
+    }
+
+    public void checkCameraPermissionAccess(PermissionCallback permissionCallback) {
+        checkPermission(CAMERA_REQUEST, permissionCallback);
+    }
+
+    public void checkReadContactsAccess(PermissionCallback permissionCallback) {
+        checkPermission(READ_CONTACTS_REQUEST, permissionCallback);
+    }
+
+    public void checkWriteContactsAccess(PermissionCallback permissionCallback) {
+        checkPermission(WRITE_CONTACTS_REQUEST, permissionCallback);
+    }
+
+    public void checkGetAccountsAccess(PermissionCallback permissionCallback) {
+        checkPermission(GET_ACCOUNTS_REQUEST, permissionCallback);
+    }
+
+    public void checkFineLocationAccess(PermissionCallback permissionCallback) {
+        checkPermission(ACCESS_FINE_LOCATION_REQUEST, permissionCallback);
+    }
+
+    public void checkCoarseLocationAccess(PermissionCallback permissionCallback) {
+        checkPermission(ACCESS_COARSE_LOCATION_REQUEST, permissionCallback);
+    }
+
+    public void checkRecordAudioAccess(PermissionCallback permissionCallback) {
+        checkPermission(RECORD_AUDIO_REQUEST, permissionCallback);
+    }
+
+    public void checkReadPhoneStateAccess(PermissionCallback permissionCallback) {
+        checkPermission(READ_PHONE_STATE_REQUEST, permissionCallback);
+    }
+
+    public void checkCallPhoneAccess(PermissionCallback permissionCallback) {
+        checkPermission(CALL_PHONE_REQUEST, permissionCallback);
+    }
+
+    public void checkReadCallLogAccess(PermissionCallback permissionCallback) {
+        checkPermission(READ_CALL_LOG_REQUEST, permissionCallback);
+    }
+
+    public void checkWriteCallLogAccess(PermissionCallback permissionCallback) {
+        checkPermission(WRITE_CALL_LOG_REQUEST, permissionCallback);
+    }
+
+    public void checkAddVoiceMailAccess(PermissionCallback permissionCallback) {
+        checkPermission(ADD_VOICEMAIL_REQUEST, permissionCallback);
+    }
+
+    public void checkUseSipAccess(PermissionCallback permissionCallback) {
+        checkPermission(USE_SIP_REQUEST, permissionCallback);
+    }
+
+    public void checkProcessOutgoingCallsAccess(PermissionCallback permissionCallback) {
+        checkPermission(PROCESS_OUTGOING_CALLS_REQUEST, permissionCallback);
+    }
+
+    public void checkBodySensorsAccess(PermissionCallback permissionCallback) {
+        checkPermission(BODY_SENSORS_REQUEST, permissionCallback);
+    }
+
+    public void checkSendSmsAccess(PermissionCallback permissionCallback) {
+        checkPermission(SEND_SMS_REQUEST, permissionCallback);
+    }
+
+    public void checkReceiveSmsAccess(PermissionCallback permissionCallback) {
+        checkPermission(RECEIVE_SMS_REQUEST, permissionCallback);
+    }
+
+    public void checkReadSmsAccess(PermissionCallback permissionCallback) {
+        checkPermission(READ_SMS_REQUEST, permissionCallback);
+    }
+
+    public void checkReceiveWapPushAccess(PermissionCallback permissionCallback) {
+        checkPermission(RECEIVE_WAP_PUSH_REQUEST, permissionCallback);
+    }
+
+    public void checkReceiveMmsAccess(PermissionCallback permissionCallback) {
+        checkPermission(RECEIVE_MMS_REQUEST, permissionCallback);
+    }
+
+    public void checkReadExternalAccess(PermissionCallback permissionCallback) {
+        checkPermission(READ_EXTERNAL_STORAGE_REQUEST, permissionCallback);
+    }
+
     public void checkPermission(int permissionId, PermissionCallback permissionCallback) {
         if (context == null) {
             throw new RuntimeException(appContext.getString(R.string.message_context_is_null));
