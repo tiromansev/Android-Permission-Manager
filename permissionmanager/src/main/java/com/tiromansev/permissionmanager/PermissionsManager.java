@@ -110,7 +110,7 @@ public class PermissionsManager {
         checkPermission(WRITE_CALENDAR_REQUEST, permissionCallback);
     }
 
-    public void checkCameraPermissionAccess(PermissionCallback permissionCallback) {
+    public void checkCameraAccess(PermissionCallback permissionCallback) {
         checkPermission(CAMERA_REQUEST, permissionCallback);
     }
 
