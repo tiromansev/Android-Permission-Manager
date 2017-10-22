@@ -41,31 +41,31 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class PermissionsManager {
 
-    public final static int LOCATION_REQUEST = 100;
-    public final static int WRITE_EXTERNAL_REQUEST = 101;
-    public final static int READ_CALENDAR_REQUEST = 102;
-    public final static int WRITE_CALENDAR_REQUEST = 103;
-    public final static int CAMERA_REQUEST = 104;
-    public final static int READ_CONTACTS_REQUEST = 105;
-    public final static int WRITE_CONTACTS_REQUEST = 106;
-    public final static int GET_ACCOUNTS_REQUEST = 107;
-    public final static int ACCESS_FINE_LOCATION_REQUEST = 108;
-    public final static int ACCESS_COARSE_LOCATION_REQUEST = 109;
-    public final static int RECORD_AUDIO_REQUEST = 110;
-    public final static int READ_PHONE_STATE_REQUEST = 111;
-    public final static int CALL_PHONE_REQUEST = 112;
-    public final static int READ_CALL_LOG_REQUEST = 113;
-    public final static int WRITE_CALL_LOG_REQUEST = 114;
-    public final static int ADD_VOICEMAIL_REQUEST = 115;
-    public final static int USE_SIP_REQUEST = 116;
-    public final static int PROCESS_OUTGOING_CALLS_REQUEST = 117;
-    public final static int BODY_SENSORS_REQUEST = 118;
-    public final static int SEND_SMS_REQUEST = 119;
-    public final static int RECEIVE_SMS_REQUEST = 120;
-    public final static int READ_SMS_REQUEST = 121;
-    public final static int RECEIVE_WAP_PUSH_REQUEST = 122;
-    public final static int RECEIVE_MMS_REQUEST = 123;
-    public final static int READ_EXTERNAL_STORAGE_REQUEST = 124;
+    private final static int LOCATION_REQUEST = 100;
+    private final static int WRITE_EXTERNAL_REQUEST = 101;
+    private final static int READ_CALENDAR_REQUEST = 102;
+    private final static int WRITE_CALENDAR_REQUEST = 103;
+    private final static int CAMERA_REQUEST = 104;
+    private final static int READ_CONTACTS_REQUEST = 105;
+    private final static int WRITE_CONTACTS_REQUEST = 106;
+    private final static int GET_ACCOUNTS_REQUEST = 107;
+    private final static int ACCESS_FINE_LOCATION_REQUEST = 108;
+    private final static int ACCESS_COARSE_LOCATION_REQUEST = 109;
+    private final static int RECORD_AUDIO_REQUEST = 110;
+    private final static int READ_PHONE_STATE_REQUEST = 111;
+    private final static int CALL_PHONE_REQUEST = 112;
+    private final static int READ_CALL_LOG_REQUEST = 113;
+    private final static int WRITE_CALL_LOG_REQUEST = 114;
+    private final static int ADD_VOICEMAIL_REQUEST = 115;
+    private final static int USE_SIP_REQUEST = 116;
+    private final static int PROCESS_OUTGOING_CALLS_REQUEST = 117;
+    private final static int BODY_SENSORS_REQUEST = 118;
+    private final static int SEND_SMS_REQUEST = 119;
+    private final static int RECEIVE_SMS_REQUEST = 120;
+    private final static int READ_SMS_REQUEST = 121;
+    private final static int RECEIVE_WAP_PUSH_REQUEST = 122;
+    private final static int RECEIVE_MMS_REQUEST = 123;
+    private final static int READ_EXTERNAL_STORAGE_REQUEST = 124;
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected;
@@ -194,7 +194,7 @@ public class PermissionsManager {
         checkPermission(READ_EXTERNAL_STORAGE_REQUEST, permissionCallback);
     }
 
-    public void checkPermission(int permissionId, PermissionCallback permissionCallback) {
+    private void checkPermission(int permissionId, PermissionCallback permissionCallback) {
         if (context == null) {
             throw new RuntimeException(appContext.getString(R.string.message_context_is_null));
         }
