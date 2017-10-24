@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -79,10 +78,6 @@ public class PermissionsManager {
         PermissionsManager.appContext = appContext;
     }
 
-    public void attachToView(View snackBarParent) {
-        this.snackBarParent = snackBarParent;
-    }
-
     public void attachTo(Activity context) {
         this.context = context;
         appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -93,7 +88,6 @@ public class PermissionsManager {
         appPreferences = null;
         snackBarParent = null;
         context = null;
-        permissionCallback = null;
     }
 
     public void checkLocationAcess(PermissionCallback permissionCallback) {
@@ -306,14 +300,14 @@ public class PermissionsManager {
                                 }
                             })
                             .show();
-                    permissionCallback.permissionRejected();
-                    permissionCallback = null;
+                    this.permissionCallback.permissionRejected();
+                    this.permissionCallback = null;
                 } else {
                     Toast.makeText(context, appContext.getString(R.string.message_snakbar_parent_is_null), Toast.LENGTH_LONG).show();
                 }
             } else {
                 this.permissionCallback.permissionAccepted();
-                permissionCallback = null;
+                this.permissionCallback = null;
             }
         }
     }
@@ -328,7 +322,8 @@ public class PermissionsManager {
         }
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(Activity context, int requestCode) {
+        this.context = context;
         switch (requestCode) {
             case WRITE_EXTERNAL_REQUEST:
                 requestPermission(WRITE_EXTERNAL_STORAGE);
