@@ -308,13 +308,11 @@ public class PermissionsManager {
                             })
                             .show();
                     this.permissionCallback.permissionRejected();
-                    this.permissionCallback = null;
                 } else {
                     Toast.makeText(context, appContext.getString(R.string.message_snakbar_parent_is_null), Toast.LENGTH_LONG).show();
                 }
             } else {
                 this.permissionCallback.permissionAccepted();
-                this.permissionCallback = null;
             }
         }
     }
@@ -322,7 +320,6 @@ public class PermissionsManager {
     private void requestPermission(String permission) {
         if (hasPermission(permission)) {
             this.permissionCallback.permissionAccepted();
-            this.permissionCallback = null;
         } else {
             permissionsRejected.add(permission);
             makePostRequestSnack();
@@ -426,7 +423,6 @@ public class PermissionsManager {
                     })
                     .show();
             permissionCallback.permissionRejected();
-            this.permissionCallback = null;
         } else if (context != null) {
             Toast.makeText(context, appContext.getString(R.string.message_snakbar_parent_is_null), Toast.LENGTH_LONG).show();
         }
