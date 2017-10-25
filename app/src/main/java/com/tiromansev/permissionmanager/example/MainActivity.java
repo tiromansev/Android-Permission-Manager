@@ -57,6 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        permissionsManager.onRequestPermissionsResult(requestCode);
+        permissionsManager.onRequestPermissionsResult(this, requestCode);
     }
 }
