@@ -91,9 +91,6 @@ public class PermissionsManager {
     }
 
     public void release() {
-        appPreferences = null;
-        snackBarParent = null;
-        context = null;
         permissionCallback = null;
     }
 
