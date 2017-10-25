@@ -329,7 +329,8 @@ public class PermissionsManager {
         }
     }
 
-    public void onRequestPermissionsResult(int requestCode) {
+    public void onRequestPermissionsResult(Activity context, int requestCode) {
+        this.context = context;
         switch (requestCode) {
             case WRITE_EXTERNAL_REQUEST:
                 requestPermission(WRITE_EXTERNAL_STORAGE);
