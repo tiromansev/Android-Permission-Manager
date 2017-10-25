@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        permissionsManager.attachTo(this);
 
         Button btnCheck = (Button) findViewById(R.id.btnCheck);
         btnCheck.setOnClickListener(new View.OnClickListener() {
@@ -39,9 +38,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        permissionsManager.detachFrom();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        permissionsManager.attachTo(this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        permissionsManager.detachFrom();
+        permissionsManager.release();
     }
 
     @Override

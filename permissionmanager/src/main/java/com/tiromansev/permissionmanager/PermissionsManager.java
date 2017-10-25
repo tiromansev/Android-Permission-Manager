@@ -90,6 +90,13 @@ public class PermissionsManager {
         context = null;
     }
 
+    public void release() {
+        appPreferences = null;
+        snackBarParent = null;
+        context = null;
+        permissionCallback = null;
+    }
+
     public void checkLocationAcess(PermissionCallback permissionCallback) {
         checkPermission(LOCATION_REQUEST, permissionCallback);
     }
