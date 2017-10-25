@@ -87,6 +87,7 @@ public class PermissionsManager {
     public void detachFrom() {
         appPreferences = null;
         snackBarParent = null;
+        context = null;
     }
 
     public void checkLocationAcess(PermissionCallback permissionCallback) {
@@ -322,6 +323,7 @@ public class PermissionsManager {
     }
 
     public void onRequestPermissionsResult(Activity context, int requestCode) {
+        this.context = context;
         switch (requestCode) {
             case WRITE_EXTERNAL_REQUEST:
                 requestPermission(WRITE_EXTERNAL_STORAGE);
