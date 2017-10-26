@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Android-Permission-Manager</string>
+    <string name="caption_permission_previously_rejected">разрешение(я) было отклонено ранее</string>
+    <string name="caption_permission_rejected">разрешение(я) отклонено</string>
+    <string name="caption_allow_ask_again">Спрашивать снова</string>
+    <string name="caption_close">Закрыть</string>
+</resources>
