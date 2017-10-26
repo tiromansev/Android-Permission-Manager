@@ -1,15 +1,12 @@
 package com.tiromansev.permissionmanager;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -68,30 +65,19 @@ public class PermissionsManager {
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected;
-    private PermissionCallback permissionCallback;
-    private View snackBarParent;
-    private Activity context;
     private static Context appContext;
     private static SharedPreferences appPreferences;
+    private static PermissionsManager mInstance;
+    private PermissionCallback permissionCallback;
 
     public static void setAppContext(Context appContext) {
         PermissionsManager.appContext = appContext;
+        mInstance = new PermissionsManager();
+        appPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
     }
 
-    public void attachTo(Activity context) {
-        this.context = context;
-        appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        snackBarParent = context.findViewById(android.R.id.content);
-    }
-
-    public void detachFrom() {
-        appPreferences = null;
-        snackBarParent = null;
-        context = null;
-    }
-
-    public void release() {
-        permissionCallback = null;
+    public static PermissionsManager get() {
+        return mInstance;
     }
 
     public void checkLocationAcess(PermissionCallback permissionCallback) {
@@ -195,10 +181,6 @@ public class PermissionsManager {
     }
 
     private void checkPermission(int permissionId, PermissionCallback permissionCallback) {
-        if (context == null) {
-            throw new RuntimeException(appContext.getString(R.string.message_context_is_null));
-        }
-
         ArrayList<String> permissions = new ArrayList<>();
         this.permissionCallback = permissionCallback;
 
@@ -284,47 +266,43 @@ public class PermissionsManager {
         permissionsRejected = findRejectedPermissions(permissions);
 
         if (permissionsToRequest.size() > 0) {//we need to ask for permissions
-            ActivityCompat.requestPermissions(context,
-                    permissionsToRequest.toArray(new String[permissionsToRequest.size()]), permissionId);
+            Intent requestIntent = PermissionRequestActivity.getRequestIntent(appContext, permissionId,
+                    permissionsToRequest.toArray(new String[permissionsToRequest.size()]));
+            appContext.startActivity(requestIntent);
             for (String perm : permissionsToRequest) {
                 markAsAsked(perm);
             }
         } else {
             if (permissionsRejected.size() > 0) {
-                if (snackBarParent != null) {
-                    Snackbar
-                            .make(snackBarParent, String.valueOf(permissionsRejected.size()) +
-                                    " " + appContext.getString(R.string.caption_permission_previously_rejected), Snackbar.LENGTH_LONG)
-                            .setAction(appContext.getString(R.string.caption_allow_ask_again), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    for (String perm : permissionsRejected) {
-                                        clearMarkAsAsked(perm);
-                                    }
-                                }
-                            })
-                            .show();
-                    this.permissionCallback.permissionRejected();
-                } else {
-                    Toast.makeText(context, appContext.getString(R.string.message_snakbar_parent_is_null), Toast.LENGTH_LONG).show();
-                }
+                Intent messageIntent = PermissionRequestActivity.getMessageIntent(appContext, String.valueOf(permissionsRejected.size()) +
+                        " " + appContext.getString(R.string.caption_permission_previously_rejected));
+                appContext.startActivity(messageIntent);
             } else {
                 this.permissionCallback.permissionAccepted();
+                this.permissionCallback = null;
             }
         }
+    }
+
+    public void executeSnackBarAction() {
+        for (String perm : permissionsRejected) {
+            clearMarkAsAsked(perm);
+        }
+        this.permissionCallback.permissionRejected();
+        this.permissionCallback = null;
     }
 
     private void requestPermission(String permission) {
         if (hasPermission(permission)) {
             this.permissionCallback.permissionAccepted();
+            this.permissionCallback = null;
         } else {
             permissionsRejected.add(permission);
-            makePostRequestSnack();
+            this.permissionCallback.permissionRejected();
+            this.permissionCallback = null;
         }
     }
-
-    public void onRequestPermissionsResult(Activity context, int requestCode) {
-        this.context = context;
+    public void onRequestPermissionsResult(int requestCode) {
         switch (requestCode) {
             case WRITE_EXTERNAL_REQUEST:
                 requestPermission(WRITE_EXTERNAL_STORAGE);
@@ -404,33 +382,12 @@ public class PermissionsManager {
         }
     }
 
-    private void makePostRequestSnack() {
-        if (snackBarParent != null) {
-            Snackbar
-                    .make(snackBarParent, String.valueOf(permissionsRejected.size()) + " " +
-                            appContext.getString(R.string.caption_permission_rejected),
-                            Snackbar.LENGTH_LONG)
-                    .setAction(appContext.getString(R.string.caption_allow_ask_again), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            for (String perm : permissionsRejected) {
-                                clearMarkAsAsked(perm);
-                            }
-                        }
-                    })
-                    .show();
-            permissionCallback.permissionRejected();
-        } else if (context != null) {
-            Toast.makeText(context, appContext.getString(R.string.message_snakbar_parent_is_null), Toast.LENGTH_LONG).show();
-        }
-    }
-
     private boolean hasPermission(String permission) {
-        if (context == null) {
+        if (appContext == null) {
             return false;
         }
         return !canMakeSmores() ||
-                (ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED);
+                (ActivityCompat.checkSelfPermission(appContext, permission) == PackageManager.PERMISSION_GRANTED);
     }
 
     private boolean shouldWeAsk(String permission) {

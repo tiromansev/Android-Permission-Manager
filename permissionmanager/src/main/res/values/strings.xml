@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Android-Permission-Manager</string>
-    <string name="message_context_is_null">Permission manager context is null. You must attach to view</string>
     <string name="caption_permission_previously_rejected">permission(s) were previously rejected</string>
     <string name="caption_permission_rejected">permission(s) were rejected</string>
     <string name="caption_allow_ask_again">Allow to Ask Again</string>
-    <string name="message_snakbar_parent_is_null">Snackbar parent is null</string>
+    <string name="caption_close">Close</string>
 </resources>
