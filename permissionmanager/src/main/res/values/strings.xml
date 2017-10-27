@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android-Permission-Manager</string>
+    <string name="app_name_example">Android-Permission-Manager</string>
     <string name="caption_permission_previously_rejected">permission(s) were previously rejected</string>
     <string name="caption_permission_rejected">permission(s) were rejected</string>
     <string name="caption_allow_ask_again">Ask Again</string>
