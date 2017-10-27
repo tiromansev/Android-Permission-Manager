@@ -66,13 +66,16 @@ public class PermissionRequestActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     PermissionsManager.get().executeSnackBarAction();
+                    dialog.dismiss();
                     finish();
                 }
             });
             dialog.setNeutralButton(R.string.go_to_app_permissions, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    PermissionsManager.get().executeSnackBarAction();
                     PermissionsManager.get().intentToAppSettings(PermissionRequestActivity.this);
+                    dialog.dismiss();
                     finish();
                 }
             });
