@@ -4,4 +4,5 @@
     <string name="caption_permission_rejected">разрешение(я) отклонено</string>
     <string name="caption_allow_ask_again">Спрашивать снова</string>
     <string name="caption_close">Закрыть</string>
+    <string name="go_to_app_permissions">К настройкам приложения</string>
 </resources>

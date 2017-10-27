@@ -1,11 +1,14 @@
 package com.tiromansev.permissionmanager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
 import java.util.ArrayList;
@@ -34,6 +37,8 @@ import static android.Manifest.permission.WRITE_CALENDAR;
 import static android.Manifest.permission.WRITE_CALL_LOG;
 import static android.Manifest.permission.WRITE_CONTACTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+import static android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS;
 
 public class PermissionsManager {
 
@@ -444,6 +449,20 @@ public class PermissionsManager {
     public interface PermissionCallback {
         void permissionAccepted();
         void permissionRejected();
+    }
+
+    public void intentToAppSettings(@NonNull Activity activity) {
+        //Open the specific App Info page:
+        Intent intent = new Intent(ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + appContext.getPackageName()));
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivity(intent);
+        } else {
+            intent = new Intent(ACTION_MANAGE_APPLICATIONS_SETTINGS);
+            if (intent.resolveActivity(activity.getPackageManager()) != null) {
+                activity.startActivity(intent);
+            }
+        }
     }
 
 }

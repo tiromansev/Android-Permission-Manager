@@ -4,4 +4,5 @@
     <string name="caption_permission_rejected">permission(s) were rejected</string>
     <string name="caption_allow_ask_again">Allow to Ask Again</string>
     <string name="caption_close">Close</string>
+    <string name="go_to_app_permissions">Go to app permissions</string>
 </resources>
