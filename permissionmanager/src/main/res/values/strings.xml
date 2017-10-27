@@ -2,7 +2,7 @@
     <string name="app_name">Android-Permission-Manager</string>
     <string name="caption_permission_previously_rejected">permission(s) were previously rejected</string>
     <string name="caption_permission_rejected">permission(s) were rejected</string>
-    <string name="caption_allow_ask_again">Allow to Ask Again</string>
+    <string name="caption_allow_ask_again">Ask Again</string>
     <string name="caption_close">Close</string>
-    <string name="go_to_app_permissions">Go to app permissions</string>
+    <string name="go_to_app_permissions">Go to Settings</string>
 </resources>
