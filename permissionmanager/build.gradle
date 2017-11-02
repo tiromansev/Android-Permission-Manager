@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
 
     defaultConfig {
@@ -21,7 +21,7 @@ android {
     }
 }
 
-def support = '25.4.0'
+def support = '26.1.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
