@@ -283,8 +283,10 @@ public class PermissionsManager {
                         " " + appContext.getString(R.string.caption_permission_previously_rejected));
                 appContext.startActivity(messageIntent);
             } else {
-                this.permissionCallback.permissionAccepted();
-                this.permissionCallback = null;
+                if (this.permissionCallback != null) {
+                    this.permissionCallback.permissionAccepted();
+                    this.permissionCallback = null;
+                }
             }
         }
     }
@@ -293,18 +295,22 @@ public class PermissionsManager {
         for (String perm : permissionsRejected) {
             clearMarkAsAsked(perm);
         }
-        this.permissionCallback.permissionRejected();
-        this.permissionCallback = null;
+        if (this.permissionCallback != null) {
+            this.permissionCallback.permissionRejected();
+            this.permissionCallback = null;
+        }
     }
 
     private void requestPermission(String permission) {
-        if (hasPermission(permission)) {
-            this.permissionCallback.permissionAccepted();
-            this.permissionCallback = null;
-        } else {
-            permissionsRejected.add(permission);
-            this.permissionCallback.permissionRejected();
-            this.permissionCallback = null;
+        if (this.permissionCallback != null) {
+            if (hasPermission(permission)) {
+                this.permissionCallback.permissionAccepted();
+                this.permissionCallback = null;
+            } else {
+                permissionsRejected.add(permission);
+                this.permissionCallback.permissionRejected();
+                this.permissionCallback = null;
+            }
         }
     }
     public void onRequestPermissionsResult(int requestCode) {
