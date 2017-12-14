@@ -31,19 +31,18 @@ Android permission manager wrapper
 ```Java
 public class MainActivity extends AppCompatActivity {
 
-    private PermissionsManager permissionsManager = new PermissionsManager();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        permissionsManager.attachTo(this);
+
+        Log.d("permission_request", "create main activity");
 
         Button btnCheck = (Button) findViewById(R.id.btnCheck);
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                permissionsManager.checkPermission(PermissionsManager.WRITE_EXTERNAL_REQUEST, new PermissionsManager.PermissionCallback() {
+                PermissionsManager.get().checkWriteExternalAccess(new PermissionsManager.PermissionCallback() {
                     @Override
                     public void permissionAccepted() {
                         Toast.makeText(MainActivity.this, getString(R.string.message_permission_accepted), Toast.LENGTH_LONG).show();
@@ -56,17 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        permissionsManager.detachFrom();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
 ```
