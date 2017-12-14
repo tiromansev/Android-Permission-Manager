@@ -10,6 +10,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -74,11 +75,20 @@ public class PermissionsManager {
     private static SharedPreferences appPreferences;
     private static PermissionsManager mInstance;
     private PermissionCallback permissionCallback;
+    private static boolean requestActive = false;
 
     public static void setAppContext(Context appContext) {
         PermissionsManager.appContext = appContext;
         mInstance = new PermissionsManager();
         appPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
+    }
+
+    public static void setRequestActive(boolean requestActive) {
+        PermissionsManager.requestActive = requestActive;
+    }
+
+    public boolean hasCallBack() {
+        return permissionCallback != null;
     }
 
     public static PermissionsManager get() {
@@ -185,9 +195,18 @@ public class PermissionsManager {
         checkPermission(READ_EXTERNAL_STORAGE_REQUEST, permissionCallback);
     }
 
-    private void checkPermission(int permissionId, PermissionCallback permissionCallback) {
+    private void checkPermission(int permissionId, @NonNull PermissionCallback permissionCallback) {
         ArrayList<String> permissions = new ArrayList<>();
         this.permissionCallback = permissionCallback;
+        Log.d("permission_request", "set permission callback, requestActive = " + requestActive);
+
+        if (!hasCallBack()) {
+            return;
+        }
+
+        if (requestActive) {
+            return;
+        }
 
         switch (permissionId) {
             case LOCATION_REQUEST:
@@ -271,6 +290,7 @@ public class PermissionsManager {
         permissionsRejected = findRejectedPermissions(permissions);
 
         if (permissionsToRequest.size() > 0) {//we need to ask for permissions
+            Log.d("permission_request", "start request");
             Intent requestIntent = PermissionRequestActivity.getRequestIntent(appContext, permissionId,
                     permissionsToRequest.toArray(new String[permissionsToRequest.size()]));
             appContext.startActivity(requestIntent);
@@ -278,12 +298,13 @@ public class PermissionsManager {
                 markAsAsked(perm);
             }
         } else {
+            Log.d("permission_request", "has no request");
             if (permissionsRejected.size() > 0) {
                 Intent messageIntent = PermissionRequestActivity.getMessageIntent(appContext, String.valueOf(permissionsRejected.size()) +
                         " " + appContext.getString(R.string.caption_permission_previously_rejected));
                 appContext.startActivity(messageIntent);
             } else {
-                if (this.permissionCallback != null) {
+                if (hasCallBack()) {
                     this.permissionCallback.permissionAccepted();
                     this.permissionCallback = null;
                 }
@@ -295,14 +316,15 @@ public class PermissionsManager {
         for (String perm : permissionsRejected) {
             clearMarkAsAsked(perm);
         }
-        if (this.permissionCallback != null) {
+        if (hasCallBack()) {
             this.permissionCallback.permissionRejected();
             this.permissionCallback = null;
         }
     }
 
     private void requestPermission(String permission) {
-        if (this.permissionCallback != null) {
+        Log.d("permission_request", "requestPermission permissionCallback is null " + hasCallBack());
+        if (hasCallBack()) {
             if (hasPermission(permission)) {
                 this.permissionCallback.permissionAccepted();
                 this.permissionCallback = null;

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 public class PermissionRequestActivity extends AppCompatActivity {
 
@@ -33,9 +34,27 @@ public class PermissionRequestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
+        Log.d("permission_request", "savedInstanceState is null = " +
+                (savedInstanceState == null) + " PermissionsManager.get().hasCallBack() = " +
+                PermissionsManager.get().hasCallBack()
+        );        if (savedInstanceState == null && PermissionsManager.get().hasCallBack()) {
             handleIntent(getIntent());
+            return;
         }
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("permission_request", "resume perm activity");
+        PermissionsManager.setRequestActive(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("permission_request", "pause perm activity");
     }
 
     @Override
@@ -86,6 +105,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         PermissionsManager.get().onRequestPermissionsResult(requestCode);
+        PermissionsManager.setRequestActive(false);
         finish();
     }
 }
