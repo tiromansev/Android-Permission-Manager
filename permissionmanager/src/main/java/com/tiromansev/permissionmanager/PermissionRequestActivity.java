@@ -15,11 +15,13 @@ public class PermissionRequestActivity extends AppCompatActivity {
     private static final String PERMISSIONS_KEY     = "permissions";
     private static final String PERMISSIONS_REQUEST = "PERMISSIONS_REQUEST";
     private static final String MESSAGE = "MESSAGE";
+    private static final String RATIONALE_MESSAGE = "RATIONALE_MESSAGE";
 
-    static Intent getRequestIntent(Context context, int requestCode, String... permissions) {
+    static Intent getRequestIntent(Context context, int requestCode, String rationaleMessage, String... permissions) {
         Intent intent = new Intent(context, PermissionRequestActivity.class);
         intent.putExtra(PERMISSIONS_KEY, permissions);
         intent.putExtra(PERMISSIONS_REQUEST, requestCode);
+        intent.putExtra(RATIONALE_MESSAGE, rationaleMessage);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
     }
@@ -37,7 +39,9 @@ public class PermissionRequestActivity extends AppCompatActivity {
         Log.d("permission_request", "savedInstanceState is null = " +
                 (savedInstanceState == null) + " PermissionsManager.get().hasCallBack() = " +
                 PermissionsManager.get().hasCallBack()
-        );        if (savedInstanceState == null && PermissionsManager.get().hasCallBack()) {
+        );
+
+        if (savedInstanceState == null && PermissionsManager.get().hasCallBack()) {
             handleIntent(getIntent());
             return;
         }
@@ -64,13 +68,31 @@ public class PermissionRequestActivity extends AppCompatActivity {
 
     private void handleIntent(Intent intent) {
         String message = intent.getStringExtra(MESSAGE);
+        String rationaleMessage = intent.getStringExtra(RATIONALE_MESSAGE);
         if (message == null) {
-            String[] permissions = intent.getStringArrayExtra(PERMISSIONS_KEY);
-            int requestCode = intent.getIntExtra(PERMISSIONS_REQUEST, 0);
-            ActivityCompat.requestPermissions(this, permissions, requestCode);
+            final String[] permissions = intent.getStringArrayExtra(PERMISSIONS_KEY);
+            final int requestCode = intent.getIntExtra(PERMISSIONS_REQUEST, 0);
+            if (rationaleMessage != null) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+                dialog.setTitle(null);
+                dialog.setMessage(rationaleMessage);
+                dialog.setCancelable(false);
+                dialog.setPositiveButton(R.string.caption_continue, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        PermissionsManager.get().markRequestedPermissionsAsAsked();
+                        ActivityCompat.requestPermissions(PermissionRequestActivity.this, permissions, requestCode);
+                    }
+                });
+                dialog.show();
+            }
+            else {
+                ActivityCompat.requestPermissions(this, permissions, requestCode);
+            }
         }
         else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
             dialog.setTitle(null);
             dialog.setMessage(message);
             dialog.setCancelable(false);
@@ -86,7 +108,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     PermissionsManager.get().executeSnackBarAction();
                     dialog.dismiss();
-                    finish();
+                    close();
                 }
             });
             dialog.setNeutralButton(R.string.go_to_app_permissions, new DialogInterface.OnClickListener() {
@@ -95,17 +117,21 @@ public class PermissionRequestActivity extends AppCompatActivity {
                     PermissionsManager.get().executeSnackBarAction();
                     PermissionsManager.get().intentToAppSettings(PermissionRequestActivity.this);
                     dialog.dismiss();
-                    finish();
+                    close();
                 }
             });
             dialog.show();
         }
     }
 
+    private void close() {
+        PermissionsManager.setRequestActive(false);
+        finish();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         PermissionsManager.get().onRequestPermissionsResult(requestCode);
-        PermissionsManager.setRequestActive(false);
-        finish();
+        close();
     }
 }

@@ -5,4 +5,5 @@
     <string name="caption_allow_ask_again">Ask Again</string>
     <string name="caption_close">Close</string>
     <string name="go_to_app_permissions">Go to Settings</string>
+    <string name="caption_continue">Continue</string>
 </resources>
