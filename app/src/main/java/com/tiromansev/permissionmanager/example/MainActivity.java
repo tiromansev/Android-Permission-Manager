@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PermissionsManager.get().checkWriteExternalAccess(new PermissionsManager.PermissionCallback() {
+                PermissionsManager.get().checkPermissions(new PermissionsManager.PermissionCallback() {
                     @Override
                     public void permissionAccepted() {
                         Toast.makeText(MainActivity.this, getString(R.string.message_permission_accepted), Toast.LENGTH_LONG).show();
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     public void permissionRejected() {
                         Toast.makeText(MainActivity.this, getString(R.string.message_permission_rejected), Toast.LENGTH_LONG).show();
                     }
-                });
+                }, PermissionsManager.WRITE_EXTERNAL_REQUEST, PermissionsManager.CAMERA_REQUEST);
             }
         });
     }

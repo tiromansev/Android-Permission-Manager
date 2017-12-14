@@ -43,31 +43,31 @@ import static android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS;
 
 public class PermissionsManager {
 
-    private final static int LOCATION_REQUEST = 100;
-    private final static int WRITE_EXTERNAL_REQUEST = 101;
-    private final static int READ_CALENDAR_REQUEST = 102;
-    private final static int WRITE_CALENDAR_REQUEST = 103;
-    private final static int CAMERA_REQUEST = 104;
-    private final static int READ_CONTACTS_REQUEST = 105;
-    private final static int WRITE_CONTACTS_REQUEST = 106;
-    private final static int GET_ACCOUNTS_REQUEST = 107;
-    private final static int ACCESS_FINE_LOCATION_REQUEST = 108;
-    private final static int ACCESS_COARSE_LOCATION_REQUEST = 109;
-    private final static int RECORD_AUDIO_REQUEST = 110;
-    private final static int READ_PHONE_STATE_REQUEST = 111;
-    private final static int CALL_PHONE_REQUEST = 112;
-    private final static int READ_CALL_LOG_REQUEST = 113;
-    private final static int WRITE_CALL_LOG_REQUEST = 114;
-    private final static int ADD_VOICEMAIL_REQUEST = 115;
-    private final static int USE_SIP_REQUEST = 116;
-    private final static int PROCESS_OUTGOING_CALLS_REQUEST = 117;
-    private final static int BODY_SENSORS_REQUEST = 118;
-    private final static int SEND_SMS_REQUEST = 119;
-    private final static int RECEIVE_SMS_REQUEST = 120;
-    private final static int READ_SMS_REQUEST = 121;
-    private final static int RECEIVE_WAP_PUSH_REQUEST = 122;
-    private final static int RECEIVE_MMS_REQUEST = 123;
-    private final static int READ_EXTERNAL_STORAGE_REQUEST = 124;
+    public final static int LOCATION_REQUEST = 100;
+    public final static int WRITE_EXTERNAL_REQUEST = 101;
+    public final static int READ_CALENDAR_REQUEST = 102;
+    public final static int WRITE_CALENDAR_REQUEST = 103;
+    public final static int CAMERA_REQUEST = 104;
+    public final static int READ_CONTACTS_REQUEST = 105;
+    public final static int WRITE_CONTACTS_REQUEST = 106;
+    public final static int GET_ACCOUNTS_REQUEST = 107;
+    public final static int ACCESS_FINE_LOCATION_REQUEST = 108;
+    public final static int ACCESS_COARSE_LOCATION_REQUEST = 109;
+    public final static int RECORD_AUDIO_REQUEST = 110;
+    public final static int READ_PHONE_STATE_REQUEST = 111;
+    public final static int CALL_PHONE_REQUEST = 112;
+    public final static int READ_CALL_LOG_REQUEST = 113;
+    public final static int WRITE_CALL_LOG_REQUEST = 114;
+    public final static int ADD_VOICEMAIL_REQUEST = 115;
+    public final static int USE_SIP_REQUEST = 116;
+    public final static int PROCESS_OUTGOING_CALLS_REQUEST = 117;
+    public final static int BODY_SENSORS_REQUEST = 118;
+    public final static int SEND_SMS_REQUEST = 119;
+    public final static int RECEIVE_SMS_REQUEST = 120;
+    public final static int READ_SMS_REQUEST = 121;
+    public final static int RECEIVE_WAP_PUSH_REQUEST = 122;
+    public final static int RECEIVE_MMS_REQUEST = 123;
+    public final static int READ_EXTERNAL_STORAGE_REQUEST = 124;
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected;
@@ -96,210 +96,214 @@ public class PermissionsManager {
     }
 
     public void checkLocationAcess(PermissionCallback permissionCallback) {
-        checkPermission(LOCATION_REQUEST, permissionCallback);
+        checkPermissions(LOCATION_REQUEST, permissionCallback);
     }
 
     public void checkLocationAcess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(LOCATION_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, LOCATION_REQUEST);
     }
 
     public void checkWriteExternalAccess(PermissionCallback permissionCallback) {
-        checkPermission(WRITE_EXTERNAL_REQUEST, permissionCallback);
+        checkPermissions(WRITE_EXTERNAL_REQUEST, permissionCallback);
     }
 
     public void checkWriteExternalAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(WRITE_EXTERNAL_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, WRITE_EXTERNAL_REQUEST);
     }
 
     public void checkReadCalendarAccess(PermissionCallback permissionCallback) {
-        checkPermission(READ_CALENDAR_REQUEST, permissionCallback);
+        checkPermissions(READ_CALENDAR_REQUEST, permissionCallback);
     }
 
     public void checkReadCalendarAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(READ_CALENDAR_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, READ_CALENDAR_REQUEST);
     }
 
     public void checkWriteCalendarAccess(PermissionCallback permissionCallback) {
-        checkPermission(WRITE_CALENDAR_REQUEST, permissionCallback);
+        checkPermissions(WRITE_CALENDAR_REQUEST, permissionCallback);
     }
 
     public void checkWriteCalendarAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(WRITE_CALENDAR_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, WRITE_CALENDAR_REQUEST);
     }
 
     public void checkCameraAccess(PermissionCallback permissionCallback) {
-        checkPermission(CAMERA_REQUEST, permissionCallback);
+        checkPermissions(CAMERA_REQUEST, permissionCallback);
     }
 
     public void checkCameraAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(CAMERA_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions( permissionCallback, rationaleMessage, CAMERA_REQUEST);
     }
 
     public void checkReadContactsAccess(PermissionCallback permissionCallback) {
-        checkPermission(READ_CONTACTS_REQUEST, permissionCallback);
+        checkPermissions(READ_CONTACTS_REQUEST, permissionCallback);
     }
 
     public void checkReadContactsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(READ_CONTACTS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, READ_CONTACTS_REQUEST);
     }
 
     public void checkWriteContactsAccess(PermissionCallback permissionCallback) {
-        checkPermission(WRITE_CONTACTS_REQUEST, permissionCallback);
+        checkPermissions(WRITE_CONTACTS_REQUEST, permissionCallback);
     }
 
     public void checkWriteContactsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(WRITE_CONTACTS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, WRITE_CONTACTS_REQUEST);
     }
 
     public void checkGetAccountsAccess(PermissionCallback permissionCallback) {
-        checkPermission(GET_ACCOUNTS_REQUEST, permissionCallback);
+        checkPermissions(GET_ACCOUNTS_REQUEST, permissionCallback);
     }
 
     public void checkGetAccountsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(GET_ACCOUNTS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, GET_ACCOUNTS_REQUEST);
     }
 
     public void checkFineLocationAccess(PermissionCallback permissionCallback) {
-        checkPermission(ACCESS_FINE_LOCATION_REQUEST, permissionCallback);
+        checkPermissions(ACCESS_FINE_LOCATION_REQUEST, permissionCallback);
     }
 
     public void checkFineLocationAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(ACCESS_FINE_LOCATION_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, ACCESS_FINE_LOCATION_REQUEST);
     }
 
     public void checkCoarseLocationAccess(PermissionCallback permissionCallback) {
-        checkPermission(ACCESS_COARSE_LOCATION_REQUEST, permissionCallback);
+        checkPermissions(ACCESS_COARSE_LOCATION_REQUEST, permissionCallback);
     }
 
     public void checkCoarseLocationAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(ACCESS_COARSE_LOCATION_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, ACCESS_COARSE_LOCATION_REQUEST);
     }
 
     public void checkRecordAudioAccess(PermissionCallback permissionCallback) {
-        checkPermission(RECORD_AUDIO_REQUEST, permissionCallback);
+        checkPermissions(RECORD_AUDIO_REQUEST, permissionCallback);
     }
 
     public void checkRecordAudioAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(RECORD_AUDIO_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, RECORD_AUDIO_REQUEST);
     }
 
     public void checkReadPhoneStateAccess(PermissionCallback permissionCallback) {
-        checkPermission(READ_PHONE_STATE_REQUEST, permissionCallback);
+        checkPermissions(READ_PHONE_STATE_REQUEST, permissionCallback);
     }
 
     public void checkReadPhoneStateAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(READ_PHONE_STATE_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, READ_PHONE_STATE_REQUEST);
     }
 
     public void checkCallPhoneAccess(PermissionCallback permissionCallback) {
-        checkPermission(CALL_PHONE_REQUEST, permissionCallback);
+        checkPermissions(CALL_PHONE_REQUEST, permissionCallback);
     }
 
     public void checkCallPhoneAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(CALL_PHONE_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, CALL_PHONE_REQUEST);
     }
 
     public void checkReadCallLogAccess(PermissionCallback permissionCallback) {
-        checkPermission(READ_CALL_LOG_REQUEST, permissionCallback);
+        checkPermissions(READ_CALL_LOG_REQUEST, permissionCallback);
     }
 
     public void checkReadCallLogAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(READ_CALL_LOG_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, READ_CALL_LOG_REQUEST);
     }
 
     public void checkWriteCallLogAccess(PermissionCallback permissionCallback) {
-        checkPermission(WRITE_CALL_LOG_REQUEST, permissionCallback);
+        checkPermissions(WRITE_CALL_LOG_REQUEST, permissionCallback);
     }
 
     public void checkWriteCallLogAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(WRITE_CALL_LOG_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, WRITE_CALL_LOG_REQUEST);
     }
 
     public void checkAddVoiceMailAccess(PermissionCallback permissionCallback) {
-        checkPermission(ADD_VOICEMAIL_REQUEST, permissionCallback);
+        checkPermissions(ADD_VOICEMAIL_REQUEST, permissionCallback);
     }
 
     public void checkAddVoiceMailAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(ADD_VOICEMAIL_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, ADD_VOICEMAIL_REQUEST);
     }
 
     public void checkUseSipAccess(PermissionCallback permissionCallback) {
-        checkPermission(USE_SIP_REQUEST, permissionCallback);
+        checkPermissions(USE_SIP_REQUEST, permissionCallback);
     }
 
     public void checkUseSipAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(USE_SIP_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, USE_SIP_REQUEST);
     }
 
     public void checkProcessOutgoingCallsAccess(PermissionCallback permissionCallback) {
-        checkPermission(PROCESS_OUTGOING_CALLS_REQUEST, permissionCallback);
+        checkPermissions(PROCESS_OUTGOING_CALLS_REQUEST, permissionCallback);
     }
 
     public void checkProcessOutgoingCallsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(PROCESS_OUTGOING_CALLS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, PROCESS_OUTGOING_CALLS_REQUEST);
     }
 
     public void checkBodySensorsAccess(PermissionCallback permissionCallback) {
-        checkPermission(BODY_SENSORS_REQUEST, permissionCallback);
+        checkPermissions(BODY_SENSORS_REQUEST, permissionCallback);
     }
 
     public void checkBodySensorsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(BODY_SENSORS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, BODY_SENSORS_REQUEST);
     }
 
     public void checkSendSmsAccess(PermissionCallback permissionCallback) {
-        checkPermission(SEND_SMS_REQUEST, permissionCallback);
+        checkPermissions(SEND_SMS_REQUEST, permissionCallback);
     }
 
     public void checkSendSmsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(SEND_SMS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, SEND_SMS_REQUEST);
     }
 
     public void checkReceiveSmsAccess(PermissionCallback permissionCallback) {
-        checkPermission(RECEIVE_SMS_REQUEST, permissionCallback);
+        checkPermissions(RECEIVE_SMS_REQUEST, permissionCallback);
     }
 
     public void checkReceiveSmsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(RECEIVE_SMS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, RECEIVE_SMS_REQUEST);
     }
 
     public void checkReadSmsAccess(PermissionCallback permissionCallback) {
-        checkPermission(READ_SMS_REQUEST, permissionCallback);
+        checkPermissions(READ_SMS_REQUEST, permissionCallback);
     }
 
     public void checkReadSmsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(READ_SMS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, READ_SMS_REQUEST);
     }
 
     public void checkReceiveWapPushAccess(PermissionCallback permissionCallback) {
-        checkPermission(RECEIVE_WAP_PUSH_REQUEST, permissionCallback);
+        checkPermissions(RECEIVE_WAP_PUSH_REQUEST, permissionCallback);
     }
 
     public void checkReceiveWapPushAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(RECEIVE_WAP_PUSH_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, RECEIVE_WAP_PUSH_REQUEST);
     }
 
     public void checkReceiveMmsAccess(PermissionCallback permissionCallback) {
-        checkPermission(RECEIVE_MMS_REQUEST, permissionCallback);
+        checkPermissions(RECEIVE_MMS_REQUEST, permissionCallback);
     }
 
     public void checkReceiveMmsAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(RECEIVE_MMS_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, RECEIVE_MMS_REQUEST);
     }
 
     public void checkReadExternalAccess(PermissionCallback permissionCallback) {
-        checkPermission(READ_EXTERNAL_STORAGE_REQUEST, permissionCallback);
+        checkPermissions(READ_EXTERNAL_STORAGE_REQUEST, permissionCallback);
     }
 
     public void checkReadExternalAccess(PermissionCallback permissionCallback, String rationaleMessage) {
-        checkPermission(READ_EXTERNAL_STORAGE_REQUEST, permissionCallback, rationaleMessage);
+        checkPermissions(permissionCallback, rationaleMessage, READ_EXTERNAL_STORAGE_REQUEST);
     }
 
-    private void checkPermission(int permissionId, @NonNull PermissionCallback permissionCallback) {
-        checkPermission(permissionId, permissionCallback, null);
+    private void checkPermissions(int permissionId, @NonNull PermissionCallback permissionCallback) {
+        checkPermissions(permissionCallback, permissionId);
     }
 
-    public void checkPermission(int permissionId, @NonNull PermissionCallback permissionCallback, String rationaleMessage) {
+    public void checkPermissions(@NonNull PermissionCallback permissionCallback, Integer... permissionsId) {
+        checkPermissions(permissionCallback, null, permissionsId);
+    }
+
+    public void checkPermissions(@NonNull PermissionCallback permissionCallback, String rationaleMessage, Integer... permissionsId) {
         ArrayList<String> permissions = new ArrayList<>();
         this.permissionCallback = permissionCallback;
         Log.d("permission_request", "set permission callback, requestActive = " + requestActive);
@@ -312,13 +316,15 @@ public class PermissionsManager {
             return;
         }
 
-        permissions.add(getPermissionStr(permissionId));
+        for (int permissionId: permissionsId) {
+            permissions.add(getPermissionStr(permissionId));
+        }
         permissionsToRequest = findUnAskedPermissions(permissions);
         permissionsRejected = findRejectedPermissions(permissions);
 
         if (permissionsToRequest.size() > 0) {//we need to ask for permissions
             Log.d("permission_request", "start request");
-            Intent requestIntent = PermissionRequestActivity.getRequestIntent(appContext, permissionId, rationaleMessage,
+            Intent requestIntent = PermissionRequestActivity.getRequestIntent(appContext, rationaleMessage,
                     permissionsToRequest.toArray(new String[permissionsToRequest.size()]));
             appContext.startActivity(requestIntent);
             if (rationaleMessage == null) {
@@ -355,22 +361,23 @@ public class PermissionsManager {
         }
     }
 
-    private void requestPermission(String permission) {
+    public void onRequestPermissionsResult(String[] permissions) {
         Log.d("permission_request", "requestPermission permissionCallback is null " + hasCallBack());
         if (hasCallBack()) {
-            if (hasPermission(permission)) {
-                this.permissionCallback.permissionAccepted();
-                this.permissionCallback = null;
-            } else {
-                permissionsRejected.add(permission);
-                this.permissionCallback.permissionRejected();
-                this.permissionCallback = null;
+            boolean allAccepted = true;
+            for (String permission: permissions) {
+                if (!hasPermission(permission)) {
+                    permissionsRejected.add(permission);
+                    allAccepted = false;
+                }
             }
+            if (allAccepted) {
+                this.permissionCallback.permissionAccepted();
+            } else {
+                this.permissionCallback.permissionRejected();
+            }
+            this.permissionCallback = null;
         }
-    }
-
-    public void onRequestPermissionsResult(int requestCode) {
-        requestPermission(getPermissionStr(requestCode));
     }
 
     public String getPermissionStr(int requestCode) {

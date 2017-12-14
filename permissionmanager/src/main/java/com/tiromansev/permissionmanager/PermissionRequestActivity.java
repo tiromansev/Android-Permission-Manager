@@ -13,14 +13,13 @@ import android.util.Log;
 public class PermissionRequestActivity extends AppCompatActivity {
 
     private static final String PERMISSIONS_KEY     = "permissions";
-    private static final String PERMISSIONS_REQUEST = "PERMISSIONS_REQUEST";
+    private static final int PERMISSIONS_REQUEST = 99;
     private static final String MESSAGE = "MESSAGE";
     private static final String RATIONALE_MESSAGE = "RATIONALE_MESSAGE";
 
-    static Intent getRequestIntent(Context context, int requestCode, String rationaleMessage, String... permissions) {
+    static Intent getRequestIntent(Context context, String rationaleMessage, String... permissions) {
         Intent intent = new Intent(context, PermissionRequestActivity.class);
         intent.putExtra(PERMISSIONS_KEY, permissions);
-        intent.putExtra(PERMISSIONS_REQUEST, requestCode);
         intent.putExtra(RATIONALE_MESSAGE, rationaleMessage);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
@@ -45,7 +44,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
             handleIntent(getIntent());
             return;
         }
-        finish();
+        close();
     }
 
     @Override
@@ -71,7 +70,6 @@ public class PermissionRequestActivity extends AppCompatActivity {
         String rationaleMessage = intent.getStringExtra(RATIONALE_MESSAGE);
         if (message == null) {
             final String[] permissions = intent.getStringArrayExtra(PERMISSIONS_KEY);
-            final int requestCode = intent.getIntExtra(PERMISSIONS_REQUEST, 0);
             if (rationaleMessage != null) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
                 dialog.setTitle(null);
@@ -82,13 +80,13 @@ public class PermissionRequestActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         PermissionsManager.get().markRequestedPermissionsAsAsked();
-                        ActivityCompat.requestPermissions(PermissionRequestActivity.this, permissions, requestCode);
+                        ActivityCompat.requestPermissions(PermissionRequestActivity.this, permissions, PERMISSIONS_REQUEST);
                     }
                 });
                 dialog.show();
             }
             else {
-                ActivityCompat.requestPermissions(this, permissions, requestCode);
+                ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST);
             }
         }
         else {
@@ -131,7 +129,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        PermissionsManager.get().onRequestPermissionsResult(requestCode);
         close();
+        PermissionsManager.get().onRequestPermissionsResult(permissions);
     }
 }
