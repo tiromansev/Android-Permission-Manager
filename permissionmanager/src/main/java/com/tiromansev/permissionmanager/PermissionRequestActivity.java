@@ -98,7 +98,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    finish();
+                    close();
                 }
             });
             dialog.setNegativeButton(R.string.caption_allow_ask_again, new DialogInterface.OnClickListener() {
