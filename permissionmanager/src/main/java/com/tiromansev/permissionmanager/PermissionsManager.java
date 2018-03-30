@@ -361,6 +361,12 @@ public class PermissionsManager {
         }
     }
 
+    public void permissionRejected() {
+        if (permissionCallback != null) {
+            permissionCallback.permissionRejected();
+        }
+    }
+
     public void onRequestPermissionsResult(String[] permissions) {
         Log.d("permission_request", "requestPermission permissionCallback is null " + hasCallBack());
         if (hasCallBack()) {

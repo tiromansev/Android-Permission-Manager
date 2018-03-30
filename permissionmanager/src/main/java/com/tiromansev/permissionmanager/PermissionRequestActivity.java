@@ -98,6 +98,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    PermissionsManager.get().permissionRejected();
                     close();
                 }
             });
