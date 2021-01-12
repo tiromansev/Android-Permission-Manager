@@ -71,7 +71,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
         if (message == null) {
             final String[] permissions = intent.getStringArrayExtra(PERMISSIONS_KEY);
             if (rationaleMessage != null) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 dialog.setTitle(null);
                 dialog.setMessage(rationaleMessage);
                 dialog.setCancelable(false);
@@ -90,7 +90,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
             }
         }
         else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setTitle(null);
             dialog.setMessage(message);
             dialog.setCancelable(false);
