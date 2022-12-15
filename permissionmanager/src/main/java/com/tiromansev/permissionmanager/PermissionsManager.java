@@ -1,19 +1,5 @@
 package com.tiromansev.permissionmanager;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import android.util.Log;
-
-import java.util.ArrayList;
-
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ADD_VOICEMAIL;
@@ -26,6 +12,9 @@ import static android.Manifest.permission.READ_CALENDAR;
 import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_MEDIA_AUDIO;
+import static android.Manifest.permission.READ_MEDIA_IMAGES;
+import static android.Manifest.permission.READ_MEDIA_VIDEO;
 import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.Manifest.permission.READ_SMS;
 import static android.Manifest.permission.RECEIVE_MMS;
@@ -40,6 +29,21 @@ import static android.Manifest.permission.WRITE_CONTACTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+
+import java.util.ArrayList;
 
 public class PermissionsManager {
 
@@ -68,6 +72,9 @@ public class PermissionsManager {
     public final static int RECEIVE_WAP_PUSH_REQUEST = 122;
     public final static int RECEIVE_MMS_REQUEST = 123;
     public final static int READ_EXTERNAL_STORAGE_REQUEST = 124;
+    public final static int READ_MEDIA_AUDIO_REQUEST = 125;
+    public final static int READ_MEDIA_IMAGES_REQUEST = 126;
+    public final static int READ_MEDIA_VIDEO_REQUEST = 127;
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected;
@@ -295,6 +302,30 @@ public class PermissionsManager {
         checkPermissions(permissionCallback, rationaleMessage, READ_EXTERNAL_STORAGE_REQUEST);
     }
 
+    public void checkReadAudioAccess(PermissionCallback permissionCallback) {
+        checkPermissions(READ_MEDIA_AUDIO_REQUEST, permissionCallback);
+    }
+
+    public void checkReadAudioAccess(PermissionCallback permissionCallback, String rationaleMessage) {
+        checkPermissions(permissionCallback, rationaleMessage, READ_MEDIA_AUDIO_REQUEST);
+    }
+
+    public void checkReadVideoAccess(PermissionCallback permissionCallback) {
+        checkPermissions(READ_MEDIA_VIDEO_REQUEST, permissionCallback);
+    }
+
+    public void checkReadVideoAccess(PermissionCallback permissionCallback, String rationaleMessage) {
+        checkPermissions(permissionCallback, rationaleMessage, READ_MEDIA_VIDEO_REQUEST);
+    }
+
+    public void checkReadImagesAccess(PermissionCallback permissionCallback) {
+        checkPermissions(READ_MEDIA_IMAGES_REQUEST, permissionCallback);
+    }
+
+    public void checkReadImagesAccess(PermissionCallback permissionCallback, String rationaleMessage) {
+        checkPermissions(permissionCallback, rationaleMessage, READ_MEDIA_IMAGES_REQUEST);
+    }
+
     private void checkPermissions(int permissionId, @NonNull PermissionCallback permissionCallback) {
         checkPermissions(permissionCallback, permissionId);
     }
@@ -462,7 +493,15 @@ public class PermissionsManager {
                 
             case READ_EXTERNAL_STORAGE_REQUEST:
                 return READ_EXTERNAL_STORAGE;
-                
+
+            case READ_MEDIA_IMAGES_REQUEST:
+                return READ_MEDIA_IMAGES;
+
+            case READ_MEDIA_VIDEO_REQUEST:
+                return READ_MEDIA_VIDEO;
+
+            case READ_MEDIA_AUDIO_REQUEST:
+                return READ_MEDIA_AUDIO;
         }
 
         return null;
