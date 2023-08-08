@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnCheck = (Button) findViewById(R.id.btnCheck);
-        btnCheck.setOnClickListener(v -> PermissionsManager.get().checkReadImagesAccess(new PermissionsManager.PermissionCallback() {
+        Button btnCheck = findViewById(R.id.btnCheck);
+        btnCheck.setOnClickListener(v -> PermissionsManager.get().checkNotificationsAccess(new PermissionsManager.PermissionCallback() {
             @Override
             public void permissionAccepted() {
                 Toast.makeText(MainActivity.this, getString(R.string.message_permission_accepted), Toast.LENGTH_LONG).show();

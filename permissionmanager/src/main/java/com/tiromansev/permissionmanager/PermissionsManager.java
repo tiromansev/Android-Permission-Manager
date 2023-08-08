@@ -7,6 +7,7 @@ import static android.Manifest.permission.BODY_SENSORS;
 import static android.Manifest.permission.CALL_PHONE;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.GET_ACCOUNTS;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.Manifest.permission.PROCESS_OUTGOING_CALLS;
 import static android.Manifest.permission.READ_CALENDAR;
 import static android.Manifest.permission.READ_CALL_LOG;
@@ -75,6 +76,7 @@ public class PermissionsManager {
     public final static int READ_MEDIA_AUDIO_REQUEST = 125;
     public final static int READ_MEDIA_IMAGES_REQUEST = 126;
     public final static int READ_MEDIA_VIDEO_REQUEST = 127;
+    public final static int PERMISSIONS_REQUEST = 128;
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected;
@@ -310,6 +312,10 @@ public class PermissionsManager {
         checkPermissions(permissionCallback, rationaleMessage, READ_MEDIA_AUDIO_REQUEST);
     }
 
+    public void checkNotificationsAccess(PermissionCallback permissionCallback) {
+        checkPermissions(PERMISSIONS_REQUEST, permissionCallback);
+    }
+
     public void checkReadVideoAccess(PermissionCallback permissionCallback) {
         checkPermissions(READ_MEDIA_VIDEO_REQUEST, permissionCallback);
     }
@@ -502,6 +508,9 @@ public class PermissionsManager {
 
             case READ_MEDIA_AUDIO_REQUEST:
                 return READ_MEDIA_AUDIO;
+
+            case PERMISSIONS_REQUEST:
+                return POST_NOTIFICATIONS;
         }
 
         return null;

@@ -63,6 +63,7 @@ public class PermissionRequestActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
+        super.onNewIntent(intent);
     }
 
     private void handleIntent(Intent intent) {
@@ -132,5 +133,6 @@ public class PermissionRequestActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         close();
         PermissionsManager.get().onRequestPermissionsResult(permissions);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
